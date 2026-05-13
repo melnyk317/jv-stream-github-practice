@@ -2,7 +2,6 @@ package practice;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import model.Candidate;
 import model.Cat;
@@ -71,7 +70,7 @@ public class StreamPractice {
                 .filter(p -> p.getSex().equals(Sex.MAN) 
                         ? (p.getAge() >= fromAge && p.getAge() <= maleToAge) 
                         : p.getAge() >= fromAge && p.getAge() <= femaleToAge)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /**
@@ -102,8 +101,8 @@ public class StreamPractice {
     public List<String> validateCandidates(List<Candidate> candidates) {
         CandidateValidator validator = new CandidateValidator();
         return candidates.stream()
-                .filter(c -> validator.test(c))
-                .map(c -> c.getName())
+                .filter(validator)
+                .map(Candidate::getName)
                 .sorted()
                 .toList();
     }
